@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from .models import *
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+
 # Create your views here.
-def register(request):
+def register_user(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -22,5 +25,23 @@ def register(request):
     return render(request, 'register.html')
         
 
-def login():
-    pass
+def login_user(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+        if not CustomUser.objects.filter(email=email).exists():
+            messages.error(request, "Invalid Email")
+            return redirect("/login/")
+        
+        user = authenticate(email=email, password=password)
+
+        if user is None:
+            messages.error(request, "Invalid Password")
+            return redirect("/login/")
+        else:
+            login(user)
+            return redirect("/")
+        
+        return redirect("/login/")
+    return render(request, 'login.html')
