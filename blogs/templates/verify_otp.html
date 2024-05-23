@@ -1,0 +1,20 @@
+<!-- verify_otp.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP</title>
+</head>
+<body>
+    <h1>Verify OTP</h1>
+    <p>An OTP has been sent to your email address. Please enter it below:</p>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="otp">Enter OTP:</label><br>
+        <input type="text" id="otp" name="otp"><br>
+        <input type="submit" value="Verify OTP">
+    </form>
+</body>
+</html>
