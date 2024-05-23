@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from .manager import UserManager
+from django.utils import timezone
 
 # Create your models here.
 
@@ -18,3 +19,16 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+    
+
+class Blog(models.Model):
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    blog_name =  models.CharField(max_length=200, null=False, blank=False)
+    title = models.CharField(max_length=200, null=False, blank=False)
+    category = models.CharField(max_length=200)
+    blog_image = models.ImageField(upload_to='blog_images', null=True, blank=True)
+    content = models.TextField(null=False, blank=False)
+    post_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.blog_name

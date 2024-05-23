@@ -1,22 +1,6 @@
-# # app - forms.py file new
-
-# from django import forms
-# from .models import CustomUser
-
-# class UserForm(forms.ModelForm):
-#     class Meta:
-#         model=CustomUser
-#         fields =('first_name','last_name','email','password','confirm_password')
-#         # fields = '__all__'
-
-#     # def __init__(self, *args, **kwargs):
-#     #     super(UserForm, self).__init__(*args, **kwargs)
-#     #     for visible in self.visible_fields():
-#     #         visible.field.widget.attrs['class'] = 'form-control'
-
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import CustomUser
+from .models import CustomUser, Blog
 
 class RegisterForm(UserCreationForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -51,3 +35,9 @@ class LoginForm(forms.Form):
 #     class Meta:
 #         model = Blog
 #         fields = ('title', 'text' )
+
+
+class BlogForm(forms.ModelForm):
+    class Meta:
+        model = Blog
+        fields = ['blog_name', 'title', 'category', 'blog_image', 'content']
