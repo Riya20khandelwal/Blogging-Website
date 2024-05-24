@@ -31,13 +31,15 @@ class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
-# class BlogForm(forms.Form):
-#     class Meta:
-#         model = Blog
-#         fields = ('title', 'text' )
 
 
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ['blog_name', 'title', 'category', 'blog_image', 'content']
+
+
+class EditUserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'phone_number', 'user_bio', 'user_profile_image']

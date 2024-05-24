@@ -20,8 +20,8 @@
             <tbody>
                 {% for blog in blogs %}
                 <tr>
-                    <td>{{ blog.id }}</td>
-                    <td>{{ blog.title }}</td>
+                    <td><a href="{% url 'blog_detail' blog_id=blog.id %} ">{{ blog.id }}</a></td>
+                    <td><a href="{% url 'blog_detail' blog_id=blog.id %} ">{{ blog.title }}</a></td>
                     <td>{{ blog.author.username }}</td>
                     <td>
                         {% if blog.blog_image %}

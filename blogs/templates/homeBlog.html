@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-Welcome to Blogging Website
+Welcome {{request.user.first_name}} {{request.user.last_name}} to Blogging Website
 
 {% endblock content %}
 

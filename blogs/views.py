@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout 
-from .forms import RegisterForm, LoginForm, BlogForm
+from .forms import RegisterForm, LoginForm, BlogForm,EditUserForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from .models import *
@@ -102,21 +102,17 @@ def create_blog(request):
     return render(request, 'create_blog.html', {'form': form})
 
 
-# def blog_list(request):
-#     blogs = Blog.objects.all()
-#     blog_data = []
-    
-#     for blog in blogs:
-#         blog_data.append({
-#             'id': blog.id,
-#             'title': blog.title,
-#             'author': blog.author.username,  # assuming the CustomUser model has a username field
-#             'image_url': blog.blog_image.url if blog.blog_image else None,
-#             'post_date': blog.post_date.strftime('%Y-%m-%d %H:%M:%S'),
-#             'category': blog.category
-#         })
-    
-#     return JsonResponse(blog_data, safe=False)
+@login_required
+def edit_user_details(request):
+    user = request.user
+    if request.method == 'POST':
+        form = EditUserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('index')  # Redirect to the user's profile page after saving
+    else:
+        form = EditUserForm(instance=user)
+    return render(request, 'edit_profile.html', {'form': form})
 
 @never_cache
 @login_required(login_url='login/')
