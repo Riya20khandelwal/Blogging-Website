@@ -8,5 +8,7 @@ urlpatterns = [
     path('logout/', user_logout, name='logout'),
     path('verify_otp/', verify_otp, name='verify_otp'),
     path('create_blog', create_blog, name='create_blog'),
+    path("blog_list", blog_list, name="blog_list"),
+    path('blog/<int:blog_id>/', blog_detail, name='blog_detail'),
 
 ]

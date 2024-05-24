@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %} Blog List {% endblock title %}
+
+{% block content %}
+    
+    <div class="container mt-5">
+        <h1 class="mb-4">Blog List</h1>
+        <h2><u> Title : {{blog.title}} </u></h2>
+        ID : {{blog.id}}<br>
+        Blog Name : {{blog.blog_name}}<br>
+        Author : {{ blog.author.username }}<br>
+        Category : {{ blog.category }}<br>
+        {% if blog.blog_image %}<br>
+        Image : <img src="{{ blog.blog_image.url }}" alt="{{ blog.title }}" style="max-width: 100px; max-height: 100px;"><br>
+        {% endif %}
+        Post Date : {{ blog.post_date|date:"Y-m-d" }}<br>
+        <br><br>
+        <p> {{blog.content}} </p>
+  
+    </div>
+
+    
+{% endblock content %}

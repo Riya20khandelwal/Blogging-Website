@@ -86,6 +86,7 @@ def user_login(request):
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
 
+
 @login_required
 def create_blog(request):
     if request.method == 'POST':
@@ -100,30 +101,37 @@ def create_blog(request):
         form = BlogForm()
     return render(request, 'create_blog.html', {'form': form})
 
-# @never_cache
-# @login_required(login_url='login/')
-# def create_blog(request):
-#     if request.method == 'POST':
-#         user= request.user
-#         blog_name = request.POST['blog_name']
-#         title = request.POST['title']
-#         category = request.POST['category']
-#         content = request.POST['content']
-#         blog_image =  request.FILES.get('blog_image')
-#         Blog(author=user,
-#              blog_name=blog_name,
-#              title=title,
-#              category=category,
-#              blog_image=blog_image,
-#              content=content).save()
-#         return redirect('home')
-#     return render(request,'createBlog.html')
 
-# def get_blog(request):
-#     data = Blog.objects.all()
-#     return render(request,'blog_list.html', {'data':data})
+# def blog_list(request):
+#     blogs = Blog.objects.all()
+#     blog_data = []
+    
+#     for blog in blogs:
+#         blog_data.append({
+#             'id': blog.id,
+#             'title': blog.title,
+#             'author': blog.author.username,  # assuming the CustomUser model has a username field
+#             'image_url': blog.blog_image.url if blog.blog_image else None,
+#             'post_date': blog.post_date.strftime('%Y-%m-%d %H:%M:%S'),
+#             'category': blog.category
+#         })
+    
+#     return JsonResponse(blog_data, safe=False)
 
-# logout page
+@never_cache
+@login_required(login_url='login/')
+def blog_list(request):
+    blogs = Blog.objects.all()
+    return render(request, 'blog_list.html', {'blogs': blogs})
+
+@never_cache
+@login_required(login_url='login/')
+def blog_detail(request, blog_id):
+    blog = Blog.objects.filter(id=blog_id).first()
+    print(blog.title, 77777777)
+    return render(request, 'blog_detail.html', {'blog':blog})
+
+
 @never_cache
 @login_required(login_url='login/')
 def user_logout(request):
