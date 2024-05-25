@@ -128,15 +128,12 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+from .credentials import email, app_password
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'email@gmail.com'
-EMAIL_HOST_PASSWORD = 'app-setting-password'
+EMAIL_HOST_USER = email
+EMAIL_HOST_PASSWORD = app_password
 EMAIL_PORT = 587
 
-
-# DEFAULT_FROM_EMAIL = 'raihncse@gmail.com'
-# SERVER_EMAIL = 'raihncse@gmail.com'
-# EMAIL_HOST_PASSWORD = '**************'
